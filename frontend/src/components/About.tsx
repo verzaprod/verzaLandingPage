@@ -35,12 +35,12 @@ const About = () => {
       className="relative min-h-screen w-full bg-black overflow-hidden flex items-center px-4 md:px-6 lg:px-8 py-16 md:py-24"
     >
       {/* Aurora Effect */}
-      <div className="absolute top-0 left-0 right-0 w-full md:h-96 h-64">
+      <div className="absolute top-0 left-0 right-0 w-full md:h-72 h-32">
         <Aurora
-          colorStops={["#22C55E", "#00D492", "#22C55E"]}
-          blend={1.5}
-          amplitude={0.6}
-          speed={0.5}
+          colorStops={["#22c55e", "#00d491","#22c55e"]}
+          blend={6.5}
+          amplitude={0.7}
+          speed={1.5}
         />
       </div>
 

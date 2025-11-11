@@ -77,6 +77,17 @@ const FAQ = () => {
         <img src={FAQBottomShield} alt="shield" className="w-full h-full" />
       </div>
 
+      {/* Background Gradient Effect  */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div
+          className="absolute bottom-[30%] left-1/2 -translate-x-1/2 w-[600px] h-[250px] rounded-full blur-[120px] z-10"
+          style={{
+            background:
+              "radial-gradient(circle, rgba(22, 163, 74, 0.15) 0%, rgba(22, 163, 29, 0.514) 40%, transparent 70%)",
+          }}
+        />
+      </div>
+
       <div className="max-w-4xl mx-auto w-full relative z-10">
         <motion.div
           variants={containerVariants}

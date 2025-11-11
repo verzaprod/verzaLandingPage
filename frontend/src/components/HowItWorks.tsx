@@ -2,8 +2,9 @@ import { easeOut, motion } from "framer-motion";
 import { Shield, Lock, Share2 } from "lucide-react";
 import ArrowRight from "../images/arrow1.svg";
 import ArrowLeft from "../images/arrow2.svg";
-import SectionBackground from "./ui/SectionBackground";
+// import SectionBackground from "./ui/SectionBackground";
 import useInView from "../hooks/useInView";
+import GridBackground from "../images/Grid background.svg";
 
 const HowItWorks = () => {
   const { ref, inView } = useInView({
@@ -11,35 +12,7 @@ const HowItWorks = () => {
     threshold: 0.1,
   });
 
-  const steps = [
-    {
-      number: 1,
-      title: "Verify Identity",
-      description:
-        "Complete verification once with trusted partners using your official documents.",
-      icon: Shield,
-      iconBg: "rgba(239, 68, 68, 0.2)",
-      iconColor: "#EF4444",
-    },
-    {
-      number: 2,
-      title: "Store Credentials",
-      description:
-        "Your verified credentials are encrypted and stored in your personal wallet.",
-      icon: Lock,
-      iconBg: "rgba(34, 197, 94, 0.2)",
-      iconColor: "#22C55E",
-    },
-    {
-      number: 3,
-      title: "Share Securely",
-      description:
-        "Grant selective access to verified information without exposing raw data.",
-      icon: Share2,
-      iconBg: "rgba(0, 212, 146, 0.2)",
-      iconColor: "#00D492",
-    },
-  ];
+
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -66,8 +39,26 @@ const HowItWorks = () => {
       id="how-it-works"
       className="relative min-h-screen w-full bg-black overflow-hidden flex items-center px-4 md:px-6 lg:px-8 py-16 md:py-24"
     >
-      {/* Background */}
-      <SectionBackground variant="bottom" gradientOpacity={0.25} />
+      {/* Grid Background */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <img
+          src={GridBackground}
+          alt="grid"
+          className="w-full h-full object-contain"
+        />
+      </div>
+
+      {/* Background Gradient Effect  */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div
+          className="absolute md:bottom-[40%] bottom-[30%] left-1/2 -translate-x-1/2 w-[600px] h-[250px] rounded-full blur-[120px] z-10"
+          style={{
+            background:
+              "radial-gradient(circle, rgba(22, 163, 74, 0.15) 0%, rgba(22, 182, 30, 0.514) 40%, transparent 70%)",
+          }}
+        />
+      </div>
+
 
       <div className="max-w-7xl mx-auto w-full relative z-10">
         <motion.div
@@ -115,149 +106,169 @@ const HowItWorks = () => {
           </motion.div>
 
           {/* Steps Grid */}
-          <div className="relative w-full">
-            {/* Desktop Grid Layout */}
-            <div className="hidden md:grid grid-cols-3 gap-8 md:gap-16 relative py-20">
-              {steps.map((step, index) => {
-                const Icon = step.icon;
-                return (
-                  <motion.div
-                    key={index}
-                    variants={itemVariants}
-                    className="relative flex flex-col items-center text-center"
+          <div className="relative w-full h-[600px] md:h-[500px] mt-12">
+            {/* Step 1 - Left */}
+            <motion.div
+              variants={itemVariants}
+              className="absolute left-0 md:left-[5%] top-5 md:top-20"
+              initial={{ opacity: 0, x: -50 }}
+              animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+            >
+              <div className="relative">
+                {/* Number */}
+                <div
+                  className="absolute left-56 text-6xl md:text-7xl font-bold"
+                  style={{
+                    color: "rgba(255, 255, 255, 0.805)",
+                  }}
+                >
+                  1
+                </div>
+
+                {/* Card */}
+                <div className="relative bg-transparent p-6 w-[280px] md:w-[320px] flex flex-col items-center text-center">
+                  {/* Icon */}
+                  <div className="w-16 h-16 rounded-xl border-2 border-red-500 flex items-center justify-center mb-4">
+                    <Shield className="w-8 h-8 text-red-500" />
+                  </div>
+
+                  {/* Content */}
+                  <h3 className="text-white text-xl font-bold mb-3">
+                    Verify Identity
+                  </h3>
+                  <p className="text-gray-500 text-sm leading-relaxed mb-6">
+                    Complete verification once with trusted partners using your
+                    official documents.
+                  </p>
+
+                  {/* Button */}
+                  <button className="px-6 py-2.5 rounded-full text-white text-sm font-medium border border-white/40 hover:border-white/40 transition-all duration-300">
+                    Learn more
+                  </button>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Arrow 1 */}
+            <motion.img
+              src={ArrowRight}
+              alt="arrow"
+              className="absolute left-[32%] md:left-[35%] top-[120px] md:top-[140px]"
+              initial={{ opacity: 0, pathLength: 0 }}
+              animate={
+                inView
+                  ? { opacity: 1, pathLength: 1 }
+                  : { opacity: 1, pathLength: 0 }
+              }
+              transition={{ duration: 1, delay: 0.6 }}
+            />
+
+            {/* Step 2 */}
+            <motion.div
+              variants={itemVariants}
+              className="absolute left-1/2 -translate-x-1/2 top-[220px] md:top-[140px]"
+              initial={{ opacity: 0, y: 50 }}
+              animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+            >
+              <div className="relative">
+                {/* Number */}
+                <div
+                  className="absolute top-6 right-8 text-5xl md:text-6xl font-bold"
+                  style={{
+                    color: "rgba(255, 255, 255, 0.805)",
+                  }}
+                >
+                  2
+                </div>
+
+                {/* Card */}
+                <div className="relative p-6 w-[280px] md:w-[320px] flex flex-col items-center text-center">
+                  {/* Icon */}
+                  <div className="w-16 h-16 rounded-full bg-[#0f9c43] border border-emerald-500/30 flex items-center justify-center mb-4">
+                    <Lock className="w-8 h-8 text-white" />
+                  </div>
+
+                  {/* Content */}
+                  <h3 className="text-white text-xl font-bold mb-3">
+                    Store Credentials
+                  </h3>
+                  <p className="text-gray-500 text-sm leading-relaxed mb-6">
+                    Your verified credentials are encrypted and stored in your
+                    personal wallet.
+                  </p>
+
+                  {/* Button with Gradient */}
+                  <button
+                    className="px-6 py-2.5 rounded-full text-black text-sm font-bold transition-all duration-300 hover:shadow-lg hover:shadow-emerald-500/20"
+                    style={{
+                      background:
+                        "linear-gradient(90deg, #ffffff 0%, #0f9c43 50%)",
+                    }}
                   >
-                    {/* Icon with Number */}
-                    <div className="relative mb-6">
-                      {/* Icon Circle */}
-                      <div
-                        className="w-20 h-20 md:w-24 md:h-24 rounded-2xl flex items-center justify-center relative"
-                        style={{
-                          backgroundColor: step.iconBg,
-                          border: `2px solid ${step.iconColor}`,
-                        }}
-                      >
-                        <Icon size={32} style={{ color: step.iconColor }} />
-                      </div>
+                    Learn more
+                  </button>
+                </div>
+              </div>
+            </motion.div>
 
-                      {/* Number Badge */}
-                      <div
-                        className="absolute -top-2 -right-2 w-10 h-10 rounded-full flex items-center justify-center font-bold text-lg"
-                        style={{
-                          background:
-                            "linear-gradient(135deg, #22C55E 0%, #00D492 100%)",
-                          color: "#000000",
-                          boxShadow: "0 4px 15px rgba(34, 197, 94, 0.4)",
-                        }}
-                      >
-                        {step.number}
-                      </div>
-                    </div>
+            {/* Arrow 2 */}
+            <motion.img
+              src={ArrowLeft}
+              alt="arrow"
+              className="absolute right-[32%] md:right-[28%] top-80 md:top-80"
+              initial={{ opacity: 0, pathLength: 0 }}
+              animate={
+                inView
+                  ? { opacity: 1, pathLength: 1 }
+                  : { opacity: 1, pathLength: 0 }
+              }
+              transition={{ duration: 1, delay: 0.8 }}
+            />
 
-                    {/* Content */}
-                    <h3 className="text-white font-urbanist font-bold text-xl md:text-2xl mb-3">
-                      {step.title}
-                    </h3>
-                    <p className="text-gray-400 font-urbanist text-sm md:text-base leading-relaxed mb-6 max-w-xs">
-                      {step.description}
-                    </p>
+            {/* Step 3 - Right */}
+            <motion.div
+              variants={itemVariants}
+              className="absolute right-0 md:right-[5%] top-[420px] md:top-[30px]"
+              initial={{ opacity: 0, x: 50 }}
+              animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
+              transition={{ duration: 0.8, delay: 0.6 }}
+            >
+              <div className="relative">
+                {/* Number */}
+                <div
+                  className="absolute top-7 right-1 text-6xl md:text-7xl font-bold"
+                  style={{
+                    color: "rgba(255, 255, 255, 0.805)",
+                  }}
+                >
+                  3
+                </div>
 
-                    {/* Learn More Button */}
-                    <motion.button
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      className="px-6 py-2 rounded-full text-black font-urbanist font-semibold border-2 transition-all duration-300"
-                      style={{
-                        backgroundColor:
-                          index === 1 ? "#22C55E" : "transparent",
-                        borderColor:
-                          index === 1 ? "#22C55E" : "rgba(255, 255, 255, 0.2)",
-                        color: index === 1 ? "#000000" : "#FFFFFF",
-                      }}
-                    >
-                      Learn more
-                    </motion.button>
+                {/* Card */}
+                <div className="relative bg-transparent p-6 w-[280px] md:w-[320px] flex flex-col items-center text-center">
+                  {/* Icon */}
+                  <div className="w-16 h-16 rounded-2xl border-2 border-cyan-500 flex items-center justify-center mb-4">
+                    <Share2 className="w-8 h-8 text-cyan-500" />
+                  </div>
 
-                    {/* Arrow between steps */}
-                    {index < steps.length - 1 && (
-                      <motion.img
-                        initial={{ opacity: 0 }}
-                        animate={inView ? { opacity: 1 } : { opacity: 0 }}
-                        transition={{ delay: 0.5 + index * 0.2, duration: 0.6 }}
-                        src={ArrowRight}
-                        alt="arrow"
-                        className="absolute -right-20 top-1/4 w-16 h-16"
-                        style={{ transform: "translateX(100%)" }}
-                      />
-                    )}
-                  </motion.div>
-                );
-              })}
-            </div>
+                  {/* Content */}
+                  <h3 className="text-white text-xl font-bold mb-3">
+                    Share Securely
+                  </h3>
+                  <p className="text-gray-400 text-sm leading-relaxed mb-6">
+                    Grant selective access to verified information without
+                    exposing raw data.
+                  </p>
 
-            {/* Mobile Vertical Layout */}
-            <div className="md:hidden space-y-8">
-              {steps.map((step, index) => {
-                const Icon = step.icon;
-                return (
-                  <motion.div
-                    key={index}
-                    variants={itemVariants}
-                    className="relative flex flex-col items-center text-center"
-                  >
-                    {/* Icon with Number */}
-                    <div className="relative mb-6">
-                      {/* Icon Circle */}
-                      <div
-                        className="w-20 h-20 rounded-2xl flex items-center justify-center relative"
-                        style={{
-                          backgroundColor: step.iconBg,
-                          border: `2px solid ${step.iconColor}`,
-                        }}
-                      >
-                        <Icon size={32} style={{ color: step.iconColor }} />
-                      </div>
-
-                      {/* Number Badge */}
-                      <div
-                        className="absolute -top-2 -right-2 w-10 h-10 rounded-full flex items-center justify-center font-bold text-lg"
-                        style={{
-                          background:
-                            "linear-gradient(135deg, #22C55E 0%, #00D492 100%)",
-                          color: "#000000",
-                          boxShadow: "0 4px 15px rgba(34, 197, 94, 0.4)",
-                        }}
-                      >
-                        {step.number}
-                      </div>
-                    </div>
-
-                    {/* Content */}
-                    <h3 className="text-white font-urbanist font-bold text-xl mb-3">
-                      {step.title}
-                    </h3>
-                    <p className="text-gray-400 font-urbanist text-sm leading-relaxed mb-6 max-w-xs">
-                      {step.description}
-                    </p>
-
-                    {/* Learn More Button */}
-                    <motion.button
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      className="px-6 py-2 rounded-full text-black font-urbanist font-semibold border-2 transition-all duration-300"
-                      style={{
-                        backgroundColor:
-                          index === 1 ? "#22C55E" : "transparent",
-                        borderColor:
-                          index === 1 ? "#22C55E" : "rgba(255, 255, 255, 0.2)",
-                        color: index === 1 ? "#000000" : "#FFFFFF",
-                      }}
-                    >
-                      Learn more
-                    </motion.button>
-                  </motion.div>
-                );
-              })}
-            </div>
+                  {/* Button */}
+                  <button className="px-6 py-2.5 rounded-full text-white text-sm font-medium border border-white/20 hover:border-white/40 transition-all duration-300">
+                    Learn more
+                  </button>
+                </div>
+              </div>
+            </motion.div>
           </div>
         </motion.div>
       </div>

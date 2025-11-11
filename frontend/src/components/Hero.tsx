@@ -1,9 +1,9 @@
 import { motion } from "framer-motion";
 import gsap from "gsap";
 import { useEffect, useState } from "react";
-import GridBackground from "../images/Grid background.svg";
 import HeroCard from "../images/hero_card.svg";
 import Aurora from "./ui/Aurora";
+import GridBackground from "../images/Grid background.svg";
 
 const HeroSection = () => {
   const [email, setEmail] = useState("");
@@ -29,10 +29,10 @@ const HeroSection = () => {
           />
         </div>
         <div
-          className="absolute bottom-[10%] left-1/2 -translate-x-1/2 w-[600px] h-[250px] rounded-full blur-[120px]"
+          className="absolute md:bottom-[40%] bottom-[30%] left-1/2 -translate-x-1/2 w-[600px] h-[250px] rounded-full blur-[120px] z-10"
           style={{
             background:
-              "radial-gradient(circle, rgba(22, 163, 74, 0.15) 0%, rgba(163, 76, 22, 0.514) 40%, transparent 70%)",
+              "radial-gradient(circle, rgba(22, 163, 74, 0.15) 0%, rgba(22, 163, 29, 0.514) 40%, transparent 70%)",
           }}
         />
       </div>
@@ -106,7 +106,7 @@ const HeroSection = () => {
             className="w-full max-w-lg mx-auto"
           >
             <div
-              className="relative flex flex-col sm:flex-row items-center gap-0 border border-green-500/30 border-b-green-500 border-b-2 rounded-3xl px-2 py-2 sm:px-2 sm:py-2 backdrop-blur-sm"
+              className="relative flex flex-col sm:flex-row items-center gap-0 border border-green-500/30 border-b-green-500 border-b-2 rounded-3xl px-2 backdrop-blur-sm"
               style={{
                 background: "rgba(0, 0, 0, 0.4)",
                 boxShadow:
@@ -129,7 +129,7 @@ const HeroSection = () => {
                 className="px-8 py-3 font-urbanist font-semibold rounded-full transition-all duration-300 whitespace-nowrap mx-1"
                 style={{
                   background:
-                    "linear-gradient(135deg, #22C55E 0%, #00D492 100%)",
+                    "linear-gradient(90deg, #ffffff 0%, #0f9c43 50%)",
                   color: "#000000",
                   boxShadow: "0 4px 20px rgba(34, 197, 94, 0.4)",
                 }}
@@ -143,14 +143,14 @@ const HeroSection = () => {
 
       {/* Aurora Effect */}
       <div
-        className="absolute bottom-0 left-0 right-0 mt-20 md:h-96 h-64 w-full"
+        className="absolute bottom-0 left-0 right-0 mt-20 md:h-72 h-32 w-full bg-transparent"
         style={{ transform: "scaleY(-1)" }}
       >
         <Aurora
-          colorStops={["#22C55E", "#00D492", "#22C55E"]}
-          blend={1.5}
-          amplitude={0.6}
-          speed={0.5}
+          colorStops={["#16a34a", "#00b57c","#149945"]}
+          blend={6.5}
+          amplitude={0.7}
+          speed={1.5}
         />
       </div>
     </section>
