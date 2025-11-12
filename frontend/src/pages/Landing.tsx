@@ -4,11 +4,14 @@ import Solutions from "../components/Solutions";
 import HowItWorks from "../components/HowItWorks";
 import FAQ from "../components/FAQ";
 
-const Landing = () => {
+interface LandingProps {
+  showHeroCard?: boolean;
+}
+
+const Landing = ({ showHeroCard = true }: LandingProps) => {
   return (
     <main className="w-full">
-      <Hero />
-
+      <Hero showCard={showHeroCard} />
       <About />
       <Solutions />
       <HowItWorks />

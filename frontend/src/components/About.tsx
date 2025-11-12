@@ -1,43 +1,78 @@
-import { easeOut, motion } from "framer-motion";
+import { motion } from "framer-motion";
+import { useEffect, useRef } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import AboutSlime from "../images/about_slime.svg";
 import Aurora from "./ui/Aurora";
-import useInView from "../hooks/useInView";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const About = () => {
-  const { ref, inView } = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  });
+  const sectionRef = useRef<HTMLElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
+  const imageRef = useRef<HTMLDivElement>(null);
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
-  };
+  useEffect(() => {
+    const section = sectionRef.current;
+    const content = contentRef.current;
+    const image = imageRef.current;
 
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.6, ease: easeOut },
-    },
-  };
+    if (!section || !content || !image) return;
+
+    const ctx = gsap.context(() => {
+      // Content animation from left
+      gsap.from(content.children, {
+        scrollTrigger: {
+          trigger: section,
+          start: "top 70%",
+          end: "top 30%",
+          toggleActions: "play none none none",
+        },
+        x: -100,
+        opacity: 0,
+        duration: 1,
+        stagger: 0.2,
+        ease: "power3.out",
+      });
+
+      // Image animation from right with float
+      gsap.from(image, {
+        scrollTrigger: {
+          trigger: section,
+          start: "top 70%",
+          end: "top 30%",
+          toggleActions: "play none none none",
+        },
+        x: 100,
+        opacity: 0,
+        duration: 1,
+        ease: "power3.out",
+      });
+
+      // Continuous float animation
+      gsap.to(image, {
+        y: -20,
+        rotation: 5,
+        duration: 5,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut",
+      });
+    }, section);
+
+    return () => ctx.revert();
+  }, []);
 
   return (
     <section
-      ref={ref}
+      ref={sectionRef}
       id="about"
       className="relative min-h-screen w-full bg-black overflow-hidden flex items-center px-4 md:px-6 lg:px-8 py-16 md:py-24"
     >
       {/* Aurora Effect */}
       <div className="absolute top-0 left-0 right-0 w-full md:h-72 h-32">
         <Aurora
-          colorStops={["#22c55e", "#00d491","#22c55e"]}
+          colorStops={["#22c55e", "#00d491", "#22c55e"]}
           blend={6.5}
           amplitude={0.7}
           speed={1.5}
@@ -54,17 +89,9 @@ const About = () => {
       />
 
       <div className="max-w-7xl mx-auto w-full relative z-10 mt-28">
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate={inView ? "visible" : "hidden"}
-          className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center"
-        >
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center">
           {/* Left Content */}
-          <motion.div
-            variants={itemVariants}
-            className="space-y-6 order-2 lg:order-1"
-          >
+          <div ref={contentRef} className="space-y-6 order-2 lg:order-1">
             {/* Title */}
             <div>
               <h2
@@ -128,11 +155,11 @@ const About = () => {
             >
               View Demo
             </motion.button>
-          </motion.div>
+          </div>
 
           {/* Right Image */}
-          <motion.div
-            variants={itemVariants}
+          <div
+            ref={imageRef}
             className="relative flex items-center justify-center order-1 lg:order-2"
           >
             {/* Background Gradient */}
@@ -144,28 +171,15 @@ const About = () => {
               }}
             />
 
-            <motion.div
-              animate={{
-                y: [0, -20, 0],
-                rotate: [0, 5, 0],
-              }}
-              transition={{
-                duration: 5,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-              className="w-full max-w-md lg:max-w-lg relative z-10"
-              style={{
-              }}
-            >
+            <div className="w-full max-w-md lg:max-w-lg relative z-10">
               <img
                 src={AboutSlime}
                 alt="Verza Slime"
                 className="w-full h-auto"
               />
-            </motion.div>
-          </motion.div>
-        </motion.div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );

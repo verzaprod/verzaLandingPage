@@ -1,11 +1,14 @@
 import { motion } from "framer-motion";
-import gsap from "gsap";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import HeroCard from "../images/hero_card.svg";
 import Aurora from "./ui/Aurora";
 import GridBackground from "../images/Grid background.svg";
 
-const HeroSection = () => {
+interface HeroSectionProps {
+  showCard?: boolean;
+}
+
+const HeroSection = ({ showCard = true }: HeroSectionProps) => {
   const [email, setEmail] = useState("");
 
   return (
@@ -19,15 +22,48 @@ const HeroSection = () => {
         />
       </div>
 
-      {/* Background Gradient Effect  */}
+      {/* Background Gradient Effect with Card */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-28 inset-0 overflow-hidden pointer-events-none">
-          <img
-            src={HeroCard}
-            alt="grid"
-            className="w-full h-full object-contain"
-          />
-        </div>
+        {showCard && (
+          <motion.div
+            className="absolute -top-28 inset-0 overflow-hidden pointer-events-none"
+            initial={{ 
+              x: "-150vw", // Start from way left (opposite of splash exit)
+              y: "20vh",
+              scale: 0.6,
+              rotate: -15,
+              opacity: 0,
+            }}
+            animate={{ 
+              x: 0,
+              y: 0,
+              scale: 1,
+              rotate: 0,
+              opacity: 1,
+            }}
+            transition={{ 
+              duration: 1.5,
+              delay: 0.3, // Small delay after landing page appears
+              ease: [0.43, 0.13, 0.23, 0.96],
+            }}
+          >
+            <motion.img
+              src={HeroCard}
+              alt="Verza Card"
+              className="w-full h-full object-contain"
+              // Add a slight bounce when it arrives
+              animate={{
+                y: [0, -10, 0],
+              }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                ease: "easeInOut",
+                delay: 2, // Start bounce after arrival
+              }}
+            />
+          </motion.div>
+        )}
         <div
           className="absolute md:bottom-[40%] bottom-[30%] left-1/2 -translate-x-1/2 w-[600px] h-[250px] rounded-full blur-[120px] z-10"
           style={{
@@ -42,27 +78,42 @@ const HeroSection = () => {
         <div className="flex flex-col items-center text-center space-y-8">
           {/* Main Heading */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.8, delay: showCard ? 1.2 : 0.2 }}
             className="space-y-4"
           >
             {/* First Line */}
             <h1 className="font-goldman font-bold text-5xl sm:text-6xl md:text-7xl lg:text-8xl leading-tight tracking-tight">
-              <span className="text-white">Own Your </span>
-              <span
+              <motion.span 
+                className="text-white"
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6, delay: showCard ? 1.4 : 0.4 }}
+              >
+                Own Your{" "}
+              </motion.span>
+              <motion.span
                 className="text-transparent bg-clip-text"
                 style={{
                   backgroundImage:
                     "linear-gradient(90deg, #22C55E 0%, #00D492 100%)",
                 }}
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6, delay: showCard ? 1.5 : 0.5 }}
               >
                 Identity.
-              </span>
+              </motion.span>
             </h1>
 
             {/* Second Line with Border Box */}
-            <div className="flex items-center justify-center font-goldman">
+            <motion.div 
+              className="flex items-center justify-center font-goldman"
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6, delay: showCard ? 1.6 : 0.6 }}
+            >
               <div
                 className="border-2 rounded-lg px-6 md:px-8 py-3 md:py-4"
                 style={{
@@ -71,26 +122,36 @@ const HeroSection = () => {
                 }}
               >
                 <h2 className="font-urbanist font-bold text-5xl sm:text-6xl md:text-7xl lg:text-8xl leading-tight tracking-tight">
-                  <span className="text-white">Control Your </span>
-                  <span
+                  <motion.span 
+                    className="text-white"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.6, delay: showCard ? 1.7 : 0.7 }}
+                  >
+                    Control Your{" "}
+                  </motion.span>
+                  <motion.span
                     className="text-transparent bg-clip-text"
                     style={{
                       backgroundImage:
                         "linear-gradient(90deg, #00D492 0%, #22C55E 100%)",
                     }}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.6, delay: showCard ? 1.8 : 0.8 }}
                   >
                     Data.
-                  </span>
+                  </motion.span>
                 </h2>
               </div>
-            </div>
+            </motion.div>
           </motion.div>
 
           {/* Description */}
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            transition={{ duration: 0.6, delay: showCard ? 1.9 : 0.9 }}
             className="font-urbanist text-gray-300 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed"
           >
             Verza is a secure digital wallet for re-usable credentials.
@@ -100,9 +161,9 @@ const HeroSection = () => {
 
           {/* Email Input Section */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6, delay: showCard ? 2.1 : 1.1 }}
             className="w-full max-w-lg mx-auto"
           >
             <div
@@ -119,7 +180,7 @@ const HeroSection = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Email/Phone Number"
-                className="w-full sm:flex-1 bg-transparent text-white placeholder-gray-400 px-6 py-4 font-urbanist"
+                className="w-full sm:flex-1 bg-transparent text-white placeholder-gray-400 px-6 py-4 font-urbanist outline-none"
               />
 
               {/* Button */}
@@ -147,7 +208,7 @@ const HeroSection = () => {
         style={{ transform: "scaleY(-1)" }}
       >
         <Aurora
-          colorStops={["#16a34a", "#00b57c","#149945"]}
+          colorStops={["#16a34a", "#00b57c", "#149945"]}
           blend={6.5}
           amplitude={0.7}
           speed={1.5}

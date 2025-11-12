@@ -1,13 +1,17 @@
-import { easeOut, motion } from "framer-motion";
-import useInView from "../hooks/useInView";
+import { motion } from "framer-motion";
+import { useEffect, useRef } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import SolutionsShield from "../images/solutions_Shield.svg";
 import SectionBackground from "./ui/SectionBackground";
 
+gsap.registerPlugin(ScrollTrigger);
+
 const Solutions = () => {
-  const { ref, inView } = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  });
+  const sectionRef = useRef<HTMLElement>(null);
+  const shieldRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
+  const boxRef = useRef<HTMLDivElement>(null);
 
   const solutions = [
     {
@@ -28,38 +32,76 @@ const Solutions = () => {
     },
   ];
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
-  };
+  useEffect(() => {
+    const section = sectionRef.current;
+    const shield = shieldRef.current;
+    const content = contentRef.current;
+    const box = boxRef.current;
 
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.6, ease: easeOut },
-    },
-  };
+    if (!section || !shield || !content || !box) return;
+
+    const ctx = gsap.context(() => {
+      // Shield animation from left with scale
+      gsap.from(shield, {
+        scrollTrigger: {
+          trigger: section,
+          start: "top 70%",
+          end: "top 30%",
+          toggleActions: "play none none none",
+        },
+        x: -150,
+        scale: 0.8,
+        opacity: 0,
+        duration: 1.2,
+        ease: "power3.out",
+      });
+
+      // Content slide from right
+      gsap.from(content, {
+        scrollTrigger: {
+          trigger: section,
+          start: "top 70%",
+          end: "top 30%",
+          toggleActions: "play none none none",
+        },
+        x: 100,
+        opacity: 0,
+        duration: 1,
+        ease: "power3.out",
+      });
+
+      // Solutions box items stagger
+      gsap.from(box.children, {
+        scrollTrigger: {
+          trigger: box,
+          start: "top 80%",
+          toggleActions: "play none none none",
+        },
+        x: 50,
+        opacity: 0,
+        duration: 0.8,
+        stagger: 0.2,
+        ease: "power2.out",
+      });
+    }, section);
+
+    return () => ctx.revert();
+  }, []);
 
   return (
     <section
-      ref={ref}
+      ref={sectionRef}
       id="enterprise"
       className="relative min-h-screen w-full bg-black overflow-hidden flex items-center px-4 md:px-6 lg:px-8 py-16 md:py-24"
     >
       {/* Background */}
-      <SectionBackground
-        variant="bottom"
-        gradientOpacity={0.25}
-      />
+      <SectionBackground variant="bottom" gradientOpacity={0.25} />
+
       {/* Background Shield */}
-      <div className="absolute -left-20 md:-left-32 lg:-left-20 top-1/2 -translate-y-1/2 w-[350px] h-[450px] md:w-[450px] md:h-[550px] lg:w-[550px] lg:h-[650px]">
+      <div
+        ref={shieldRef}
+        className="absolute -left-20 md:-left-32 lg:-left-20 top-1/2 -translate-y-1/2 w-[350px] h-[450px] md:w-[450px] md:h-[550px] lg:w-[550px] lg:h-[650px]"
+      >
         {/* Gradient Background */}
         <div
           className="absolute inset-0 rounded-full blur-[80px]"
@@ -74,17 +116,13 @@ const Solutions = () => {
           alt="shield"
           className="w-full h-full object-contain relative z-10"
         />
-      </div>{" "}
+      </div>
+
       <div className="max-w-7xl mx-auto w-full relative z-10">
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate={inView ? "visible" : "hidden"}
-          className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center"
-        >
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center">
           {/* Right Content */}
-          <motion.div
-            variants={itemVariants}
+          <div
+            ref={contentRef}
             className="order-1 lg:order-2 flex flex-col items-end"
           >
             {/* Title */}
@@ -123,6 +161,7 @@ const Solutions = () => {
 
             {/* Solutions Box */}
             <div
+              ref={boxRef}
               className="w-full p-8 md:p-10 lg:p-12 rounded-lg border-2 space-y-8 backdrop-blur-md"
               style={{
                 borderColor: "#22C55E",
@@ -133,15 +172,7 @@ const Solutions = () => {
               }}
             >
               {solutions.map((solution, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={
-                    inView ? { opacity: 1, x: 0 } : { opacity: 0, x: 20 }
-                  }
-                  transition={{ duration: 0.6, delay: 0.2 + index * 0.1 }}
-                  className="space-y-2"
-                >
+                <div key={index} className="space-y-2">
                   {/* Title with bullet */}
                   <div className="flex items-center gap-3">
                     <span className="text-green-400 text-xl">
@@ -156,14 +187,14 @@ const Solutions = () => {
                   <p className="text-gray-400 font-urbanist text-sm md:text-base leading-relaxed pl-8">
                     {solution.description}
                   </p>
-                </motion.div>
+                </div>
               ))}
             </div>
-          </motion.div>
+          </div>
 
           {/* Left Empty Space for Balance */}
           <div className="order-2 lg:order-1" />
-        </motion.div>
+        </div>
       </div>
     </section>
   );
