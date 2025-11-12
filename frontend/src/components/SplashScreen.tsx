@@ -9,10 +9,9 @@ interface SplashScreenProps {
 const SplashScreen = ({ onComplete }: SplashScreenProps) => {
   const [progress, setProgress] = useState(0);
   const cardControls = useAnimation();
-  const borderControls = useAnimation();
 
   useEffect(() => {
-    const duration = 3000; // 3 seconds
+    const duration = 1000; // 1 seconds
     const interval = 20;
     const increment = (interval / duration) * 100;
 
@@ -33,7 +32,7 @@ const SplashScreen = ({ onComplete }: SplashScreenProps) => {
                 ease: [0.43, 0.13, 0.23, 0.96],
               },
             });
-            
+
             // Notify parent to show landing page mid-animation
             setTimeout(() => {
               onComplete();
@@ -48,24 +47,12 @@ const SplashScreen = ({ onComplete }: SplashScreenProps) => {
     return () => clearInterval(timer);
   }, [onComplete, cardControls]);
 
-  // Animate border rotation
-  useEffect(() => {
-    borderControls.start({
-      rotate: 360,
-      transition: {
-        duration: 3,
-        ease: "linear",
-        repeat: Infinity,
-      },
-    });
-  }, [borderControls]);
-
   return (
     <motion.div
       initial={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.3 }}
-      className="fixed inset-0 z-[100] bg-black flex flex-col items-center justify-center overflow-hidden"
+      className="fixed inset-0 z-100 bg-black flex flex-col items-center justify-center overflow-hidden"
     >
       {/* Animated Background Particles */}
       <div className="absolute inset-0 overflow-hidden">
@@ -113,82 +100,107 @@ const SplashScreen = ({ onComplete }: SplashScreenProps) => {
         className="relative"
         style={{ originX: 0.5, originY: 0.5 }}
       >
-        {/* Rotating Border Segments */}
+        {/* Dynamic Aura Rings */}
         <motion.div
-          animate={borderControls}
           className="absolute inset-0 -m-4"
           style={{
             width: "calc(100% + 32px)",
             height: "calc(100% + 32px)",
-            left: "-16px",
-            top: "-16px",
+            left: "-1px",
+            top: "-1px",
           }}
         >
-          {/* Progress-based border segments */}
-          <svg
-            className="w-full h-full"
-            viewBox="0 0 400 300"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            {/* Animated stroke border */}
-            <rect
-              x="10"
-              y="10"
-              width="380"
-              height="280"
-              rx="20"
-              stroke="url(#gradient)"
-              strokeWidth="4"
-              strokeDasharray="1200"
-              strokeDashoffset={1200 - (1200 * progress) / 100}
+          {/* Pulsing Glow Layer */}
+          <motion.div
+            className="absolute  inset-0 rounded-3xl"
+            style={{
+              boxShadow:
+                "inset 0 0 30px rgba(34, 197, 94, 0.3), 0 0 40px rgba(34, 197, 94, 0.2)",
+            }}
+            animate={{
+              opacity: [0.3, 0.8, 0.3],
+              boxShadow: [
+                "inset 0 0 30px rgba(34, 197, 94, 0.2), 0 0 30px rgba(34, 197, 94, 0.1)",
+                "inset 0 0 40px rgba(34, 197, 94, 0.5), 0 0 60px rgba(34, 197, 94, 0.4)",
+                "inset 0 0 30px rgba(34, 197, 94, 0.2), 0 0 30px rgba(34, 197, 94, 0.1)",
+              ],
+            }}
+            transition={{
+              duration: 2.5,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          />
+
+          {/* Corner Accent Points */}
+          {[
+            { x: "-8px", y: "-8px" },
+            { x: "calc(100% - 0px)", y: "-8px" },
+            { x: "-8px", y: "calc(100% - 0px)" },
+            { x: "calc(100% - 0px)", y: "calc(100% - 0px)" },
+          ].map((pos, idx) => (
+            <motion.div
+              key={`corner-${idx}`}
+              className="absolute w-3 h-3 rounded-full"
               style={{
-                transition: "stroke-dashoffset 0.1s linear",
+                left: pos.x,
+                top: pos.y,
+                background:
+                  "radial-gradient(circle, #22C55E 0%, transparent 70%)",
+                boxShadow: "0 0 15px rgba(34, 197, 94, 0.8)",
+              }}
+              animate={{
+                scale: [1, 1.5, 1],
+                opacity: [0.5, 1, 0.5],
+              }}
+              transition={{
+                duration: 1.5,
+                repeat: Infinity,
+                ease: "easeInOut",
+                delay: idx * 0.2,
               }}
             />
-            <defs>
-              <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#22C55E" />
-                <stop offset="50%" stopColor="#00D492" />
-                <stop offset="100%" stopColor="#22C55E" />
-              </linearGradient>
-            </defs>
-          </svg>
+          ))}
         </motion.div>
 
         {/* Glowing Corner Indicators */}
-        {["top-left", "top-right", "bottom-left", "bottom-right"].map((corner, index) => {
-          const positions = {
-            "top-left": "top-0 left-0",
-            "top-right": "top-0 right-0",
-            "bottom-left": "bottom-0 left-0",
-            "bottom-right": "bottom-0 right-0",
-          };
-          
-          return (
-            <motion.div
-              key={corner}
-              className={`absolute ${positions[corner as keyof typeof positions]} w-4 h-4`}
-              animate={{
-                scale: progress > index * 25 ? [1, 1.5, 1] : 0,
-                opacity: progress > index * 25 ? [0.5, 1, 0.5] : 0,
-              }}
-              transition={{
-                duration: 0.8,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-            >
-              <div
-                className="w-full h-full rounded-full"
-                style={{
-                  background: "radial-gradient(circle, #22C55E 0%, transparent 70%)",
-                  boxShadow: "0 0 20px rgba(34, 197, 94, 0.8)",
+        {["top-left", "top-right", "bottom-left", "bottom-right"].map(
+          (corner, index) => {
+            const positions = {
+              "top-left": "top-0 left-0",
+              "top-right": "top-0 right-0",
+              "bottom-left": "bottom-0 left-0",
+              "bottom-right": "bottom-0 right-0",
+            };
+
+            return (
+              <motion.div
+                key={corner}
+                className={`absolute ${
+                  positions[corner as keyof typeof positions]
+                } w-4 h-4`}
+                animate={{
+                  scale: progress > index * 25 ? [1, 1.5, 1] : 0,
+                  opacity: progress > index * 25 ? [0.5, 1, 0.5] : 0,
                 }}
-              />
-            </motion.div>
-          );
-        })}
+                transition={{
+                  duration: 0.8,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+              >
+                <div
+                  className="w-full h-full rounded-full"
+                  style={{
+                    background:
+                      "radial-gradient(circle, #22C55E 0%, transparent 70%)",
+                    boxShadow: "0 0 20px rgba(34, 197, 94, 0.8)",
+                  }}
+                />
+              </motion.div>
+            );
+          }
+        )}
 
         {/* Main Card with Floating Animation */}
         <motion.div
@@ -219,7 +231,7 @@ const SplashScreen = ({ onComplete }: SplashScreenProps) => {
                 "radial-gradient(circle, rgba(34, 197, 94, 0.6) 0%, transparent 70%)",
             }}
           />
-          
+
           {/* Card Image */}
           <motion.img
             src={HeroCard}
@@ -249,7 +261,7 @@ const SplashScreen = ({ onComplete }: SplashScreenProps) => {
             height: "4px",
           }}
           animate={{
-            y: ["-100%", "3000%"],
+            y: ["-100%", "15000%"],
           }}
           transition={{
             duration: 3,
@@ -325,7 +337,8 @@ const SplashScreen = ({ onComplete }: SplashScreenProps) => {
       <motion.div
         className="absolute left-0 top-1/2 w-1 h-64 -translate-y-1/2"
         style={{
-          background: "linear-gradient(to bottom, transparent, #22C55E, transparent)",
+          background:
+            "linear-gradient(to bottom, transparent, #22C55E, transparent)",
         }}
         animate={{
           opacity: [0, 1, 0],
@@ -340,7 +353,8 @@ const SplashScreen = ({ onComplete }: SplashScreenProps) => {
       <motion.div
         className="absolute right-0 top-1/2 w-1 h-64 -translate-y-1/2"
         style={{
-          background: "linear-gradient(to bottom, transparent, #00D492, transparent)",
+          background:
+            "linear-gradient(to bottom, transparent, #00D492, transparent)",
         }}
         animate={{
           opacity: [0, 1, 0],
