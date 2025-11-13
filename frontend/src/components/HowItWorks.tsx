@@ -128,7 +128,6 @@ const HowItWorks = () => {
         card.addEventListener("mouseenter", () => {
           gsap.to(card, {
             y: -15,
-            boxShadow: "0 20px 60px rgba(34, 197, 94, 0.3)",
             duration: 0.4,
             ease: "power2.out",
           });
@@ -137,7 +136,6 @@ const HowItWorks = () => {
         card.addEventListener("mouseleave", () => {
           gsap.to(card, {
             y: 0,
-            boxShadow: "0 0px 0px rgba(34, 197, 94, 0)",
             duration: 0.4,
             ease: "power2.out",
           });
@@ -216,7 +214,7 @@ const HowItWorks = () => {
           {/* Step 1 - Left */}
           <motion.div
             ref={step1Ref}
-            className="absolute left-0 md:left-[5%] top-5 md:top-20 cursor-pointer group"
+            className="absolute -left-2 lg:left-[5%] top-5 lg:top-20 cursor-pointer group"
             whileHover={{ scale: 1.05, y: -10 }}
             transition={{ duration: 0.3 }}
           >
@@ -277,7 +275,7 @@ const HowItWorks = () => {
             ref={arrow1Ref}
             src={ArrowRight}
             alt="arrow"
-            className="absolute left-[32%] md:left-[35%] top-[120px] md:top-[140px]"
+            className="absolute left-[38%] lg:left-[35%] top-[120px] lg:top-[140px] max-lg:w-16"
             whileHover={{ x: 20 }}
             transition={{ duration: 0.3 }}
           />
@@ -285,7 +283,7 @@ const HowItWorks = () => {
           {/* Step 2 */}
           <motion.div
             ref={step2Ref}
-            className="absolute left-1/2 top-[220px] md:top-[140px] cursor-pointer group"
+            className="absolute left-1/2 top-[220px] lg:top-[140px] cursor-pointer group"
             style={{ x: "-50%" }}
             whileHover={{ scale: 1.05, y: -10 }}
             transition={{ duration: 0.3 }}
@@ -350,7 +348,7 @@ const HowItWorks = () => {
             ref={arrow2Ref}
             src={ArrowLeft}
             alt="arrow"
-            className="absolute right-[32%] md:right-[28%] top-80 md:top-80"
+            className="absolute right-[18%] lg:right-[28%] top-90 lg:top-80 max-lg:w-16"
             whileHover={{ x: -20 }}
             transition={{ duration: 0.3 }}
           />
@@ -358,7 +356,7 @@ const HowItWorks = () => {
           {/* Step 3 - Right */}
           <motion.div
             ref={step3Ref}
-            className="absolute right-0 md:right-[5%] top-[420px] md:top-[30px] cursor-pointer group"
+            className="absolute right-0 md:right-[5%] -top-10 lg:top-[30px] cursor-pointer group"
             whileHover={{ scale: 1.05, y: -10 }}
             transition={{ duration: 0.3 }}
           >
