@@ -4,6 +4,7 @@
 
 - Netlify is configured via `netlify.toml` at the repo root.
 - The app lives in `frontend/`; builds to `frontend/dist`.
+- [Link](https://verzaapp.netlify.app/)
 
 ### What’s configured
 - Base directory: `frontend`
