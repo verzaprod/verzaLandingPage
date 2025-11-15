@@ -2,9 +2,10 @@ import { motion } from "framer-motion";
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Twitter, Linkedin, Github, Mail } from "lucide-react";
+import { Twitter, Github, Mail } from "lucide-react";
 import VerzaLogo from "../images/verzalogo.svg";
 import GridBackground from "../images/Grid background.svg";
+import DownloadButton from "./ui/DownloadButton";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -14,7 +15,6 @@ const Footer = () => {
 
   const socialLinks = [
     { icon: Twitter, href: "#", label: "Twitter" },
-    { icon: Linkedin, href: "#", label: "LinkedIn" },
     { icon: Github, href: "#", label: "GitHub" },
     { icon: Mail, href: "#", label: "Email" },
   ];
@@ -85,6 +85,12 @@ const Footer = () => {
                 Your secure digital wallet for reusable credentials. Own your
                 identity, control your data.
               </p>
+
+              {/* Download Buttons */}
+              <div className="flex flex-col sm:flex-row items-start gap-3 mt-6">
+                <DownloadButton platform="ios" className="w-full sm:w-auto" />
+                <DownloadButton platform="android" className="w-full sm:w-auto" />
+              </div>
             </div>
 
             {/* Right - Legal Links */}

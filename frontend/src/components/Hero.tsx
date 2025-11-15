@@ -3,6 +3,7 @@ import { useState } from "react";
 import HeroCard from "../images/hero_card.svg";
 import Aurora from "./ui/Aurora";
 import GridBackground from "../images/Grid background.svg";
+import DownloadButton from "./ui/DownloadButton";
 
 interface HeroSectionProps {
   showCard?: boolean;
@@ -197,6 +198,19 @@ const HeroSection = ({ showCard = true }: HeroSectionProps) => {
               >
                 Join Waitlist
               </motion.button>
+            </div>
+          </motion.div>
+
+          {/* Download Buttons Section */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: showCard ? 2.3 : 1.3 }}
+            className=" w-full lg:w-auto lg:max-w-2xl lg:mx-auto sm:px-12 py-2"
+          >
+            <div className="flex flex-col md:flex-row items-center justify-center gap-2 lg:gap-6">
+              <DownloadButton platform="ios" className="max-lg:w-full" />
+              <DownloadButton platform="android" className="max-lg:w-full" />
             </div>
           </motion.div>
         </div>
