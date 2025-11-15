@@ -3,6 +3,7 @@ import About from "../components/About";
 import Solutions from "../components/Solutions";
 import HowItWorks from "../components/HowItWorks";
 import FAQ from "../components/FAQ";
+// import TransitioningSlime from "../components/TransitioningSlime";
 
 interface LandingProps {
   showHeroCard?: boolean;
@@ -10,7 +11,11 @@ interface LandingProps {
 
 const Landing = ({ showHeroCard = true }: LandingProps) => {
   return (
-    <main className="w-full">
+    <main className="relative w-full">
+      {/* CRITICAL: TransitioningSlime must be here to animate between Hero and About */}
+      {/* <TransitioningSlime /> */}
+      
+      {/* Your sections */}
       <Hero showCard={showHeroCard} />
       <About />
       <Solutions />

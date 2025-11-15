@@ -187,7 +187,7 @@ const HeroSection = ({ showCard = true }: HeroSectionProps) => {
               <motion.button
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="px-8 py-3 font-urbanist font-semibold rounded-full transition-all duration-300 whitespace-nowrap mx-1"
+                className="px-8 py-3 font-urbanist font-semibold rounded-full transition-all duration-300 whitespace-nowrap mx-1 w-full sm:w-auto mb-2 sm:mb-0"
                 style={{
                   background:
                     "linear-gradient(90deg, #ffffff 0%, #0f9c43 50%)",
