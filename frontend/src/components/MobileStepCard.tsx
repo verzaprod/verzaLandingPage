@@ -80,7 +80,7 @@ const MobileStepCard = ({
       style={
         number === 2
           ? { background: "linear-gradient(90deg, #ffffff 0%, #0f9c43 50%)" }
-          : undefined
+          : { background: "transparent" }
       }
       whileHover={{
         scale: 1.1,

@@ -137,7 +137,7 @@ const FAQ = () => {
                   className="w-full px-6 md:px-8 py-5 md:py-6 flex items-center justify-between text-left transition-all duration-300 hover:bg-green-500/5"
                 >
                   {/* Question Icon and Text */}
-                  <div className="flex items-center gap-4 flex-1">
+                  <div className="flex items-center gap-4 flex-1  bg-transparent">
                     {/* Circle Icon */}
                     <div
                       className="w-8 h-8 rounded-full flex items-center justify-center shrink-0"

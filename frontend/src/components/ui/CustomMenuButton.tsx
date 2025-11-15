@@ -27,7 +27,7 @@ export default function CustomMenuButton({
   return (
     <motion.button
       onClick={onClick}
-      className="md:hidden flex flex-col gap-1.5 p-2"
+      className="md:hidden flex flex-col gap-1.5 p-2 bg-transparent focus:outline-none"
       whileTap={{ scale: 0.95 }}
     >
       <motion.div

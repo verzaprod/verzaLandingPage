@@ -256,7 +256,7 @@ const HowItWorks = () => {
 
                 {/* Button */}
                 <motion.button
-                  className="px-6 py-2.5 rounded-full text-white text-sm font-medium border border-white/40 hover:border-white/40 transition-all duration-300"
+                  className="px-6 py-2.5 rounded-full text-white text-sm font-medium border border-white/40 hover:border-white/40 transition-all duration-300 bg-transparent"
                   whileHover={{
                     scale: 1.1,
                     boxShadow: "0 0 20px rgba(239, 68, 68, 0.4)",
@@ -398,7 +398,7 @@ const HowItWorks = () => {
 
                 {/* Button */}
                 <motion.button
-                  className="px-6 py-2.5 rounded-full text-white text-sm font-medium border border-white/20 hover:border-white/40 transition-all duration-300"
+                  className="px-6 py-2.5 rounded-full text-white text-sm font-medium border border-white/20 hover:border-white/40 transition-all duration-300 bg-transparent"
                   whileHover={{
                     scale: 1.1,
                     boxShadow: "0 0 20px rgba(0, 212, 146, 0.4)",
