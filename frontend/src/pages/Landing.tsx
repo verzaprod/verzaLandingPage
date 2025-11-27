@@ -12,7 +12,7 @@ interface LandingProps {
 const Landing = ({ showHeroCard = true }: LandingProps) => {
   return (
     <main className="relative w-full">
-      {/* CRITICAL: TransitioningSlime must be here to animate between Hero and About */}
+
       {/* <TransitioningSlime /> */}
       
       {/* Your sections */}
