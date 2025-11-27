@@ -26,7 +26,7 @@ const Solutions = () => {
   );
   const shieldX = useTransform(scrollYProgress, [0, 1], [-100, 50]);
 
-  const contentX = useTransform(scrollYProgress, [0, 1], [100, -50]);
+  const contentX = useTransform(scrollYProgress, [0, 1], [100, -80]);
 
   const solutions = [
     {
@@ -131,7 +131,7 @@ const Solutions = () => {
       ref={sectionRef}
       id="enterprise"
       className="relative min-h-screen w-full bg-black overflow-hidden flex items-center px-4 md:px-6 lg:px-8 py-16 md:py-24"
-      style={{ perspective: "2000px" }}
+      // style={{ perspective: "2000px" }}
     >
       <SectionBackground variant="bottom" gradientOpacity={0.25} />
 
@@ -139,10 +139,10 @@ const Solutions = () => {
       <motion.div
         ref={shieldRef}
         className="absolute -left-20 md:-left-32 lg:-left-20 top-1/2 -translate-y-1/2 w-[350px] h-[450px] md:w-[450px] md:h-[550px] lg:w-[550px] lg:h-[650px] cursor-pointer"
-        style={{
+        // style={{
           // scale: shieldScale,
           // x: shieldX,
-        }}
+        // }}
       >
         {/* Pulsing gradient background */}
         <motion.div

@@ -46,7 +46,7 @@ const Footer = () => {
   return (
     <footer
       ref={footerRef}
-      className="relative bg-black px-4 md:px-6 lg:px-8 py-12 md:py-16"
+      className="relative bg-black px-4 md:px-6 lg:px-8 py-12 md:py-16 mb-22"
     >
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <img
