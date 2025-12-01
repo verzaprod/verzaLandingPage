@@ -118,3 +118,14 @@
     background-color: #f9f9f9;
   }
 }
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: translate(-50%, 0) scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: translate(-50%, 0) scale(1.2);
+  }
+}
